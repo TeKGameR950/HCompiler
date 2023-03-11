@@ -1,0 +1,138 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../DefineConstants.props" />
+	<PropertyGroup>
+		<GenerateTargetFrameworkMonikerAttribute>false</GenerateTargetFrameworkMonikerAttribute>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<ExcludePackageFilesFromOutput>true</ExcludePackageFilesFromOutput>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net4.8</TargetFramework>
+		<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<OutputPath>build\</OutputPath>
+		<Configurations>SOTF;RAFT;GREENHELL</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Microsoft.CodeAnalysis">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Microsoft.CodeAnalysis.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Microsoft.CodeAnalysis.CSharp">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Posix">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Mono.Posix.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Security">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Mono.Security.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="System.Collections">
+		  <Private>False</Private>
+		</Reference>
+		<Reference Include="System.Collections.Immutable">
+		  <HintPath>..\HMLCore\Dependencies\HCompiler\Core\System.Collections.Immutable.dll</HintPath>
+		  <Private>False</Private>
+		</Reference>
+		<Reference Include="System.ComponentModel.Composition">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\System.ComponentModel.Composition.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="System.ServiceModel.Internals">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\System.ServiceModel.Internals.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Trivial.CodeSecurity">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Trivial.CodeSecurity.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Trivial.Mono.Cecil">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Trivial.Mono.Cecil.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Trivial.Mono.Cecil.Mdb">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Trivial.Mono.Cecil.Mdb.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Trivial.Mono.Cecil.Pdb">
+			<HintPath>..\HMLCore\Dependencies\HCompiler\Core\Trivial.Mono.Cecil.Pdb.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)' == 'RAFT' Or '$(Configuration)' == 'GREENHELL'">
+			<HintPath>..\..\references\Mono\UnityEngine.CoreModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)' == 'SOTF'">
+			<HintPath>..\..\references\IL2CPP\BepInEx\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppmscorlib.dll" Condition="'$(Configuration)' == 'SOTF'">
+			<HintPath>..\..\references\IL2CPP\BepInEx\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Runtime.dll" Condition="'$(Configuration)' == 'SOTF'">
+			<HintPath>..\..\references\IL2CPP\BepInEx\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if &quot;$(ConfigurationName)&quot;==&quot;SOTF&quot; (&#xD;&#xA; COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)HMLCore/Dependencies/HCompiler/HCompiler.IL2CPP.dll&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;RAFT&quot; (&#xD;&#xA; COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Supported Games/AssemblyLoader/Dependencies/HCompiler.Mono.dll&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;GREENHELL&quot; (&#xD;&#xA; COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Supported Games/AssemblyLoader/Dependencies/HCompiler.Mono.dll&quot;&#xD;&#xA;)&#xD;&#xA;" />
+	</Target>
+
+	<ItemGroup>
+	  <Reference Update="System">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Core">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Data">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Drawing">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.IO.Compression.FileSystem">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Numerics">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Runtime.Serialization">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml.Linq">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+</Project>
